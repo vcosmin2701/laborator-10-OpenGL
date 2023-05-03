@@ -8,40 +8,56 @@
 #include "glu.h"
 #include "glaux.h"
 
+GLfloat diffuseMaterial[4] = { 0.5, 0.5, 0.5, 1.0 };
+
+void CALLBACK changeRedDiffuse()
+{
+	// modifica componenta rosie a coeficientului de reflexie al materialului
+	diffuseMaterial[0] += 0.1;
+	if (diffuseMaterial[0] > 1.0) {
+		diffuseMaterial[0] = 0.0;
+	}
+	glColor4fv(diffuseMaterial);
+}
+
+void CALLBACK changeGreenDiffuse()
+{
+	// modifica componenta verde a coeficientului de reflexie al materialului
+	diffuseMaterial[1] += 0.1;
+	if (diffuseMaterial[1] > 1.0) {
+		diffuseMaterial[1] = 0.0;
+	}
+	glColor4fv(diffuseMaterial);
+}
+
+void CALLBACK changeBlueDiffuse()
+{
+	// modifica componenta albastra a coeficientului de reflexie al materialului
+	diffuseMaterial[2] += 0.1;
+	if (diffuseMaterial[2] > 1.0) {
+		diffuseMaterial[2] = 0.0;
+	}
+	glColor4fv(diffuseMaterial);
+}
+
+
 void myInit()
 {	
-	// coeficientii de reflexie pentru reflexia ambientala si cea difuza sunt cei impliciti
-	GLfloat mat_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
-	GLfloat mat_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
-	// reflectanta speculara si exponentul de reflexie speculara nu sunt la valorile implicite (0.0)
-	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat mat_shininess[] = { 50.0 };
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 }; // coeficientul de reflexie speculara
+	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 }; // directia sursei de lumina, aflate la infinit
+
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuseMaterial);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-
-	// valori implicite pentru intensitatea sursei LIGHT0
-	GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
-	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat light_diffuse1[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-
-	// pozitia sursei nu are valori implicite
-	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+	glMaterialf(GL_FRONT, GL_SHININESS, 25.0); // exponentul pentru reflexia speculara
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-	GLfloat lmodel_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+	glEnable(GL_LIGHTING); // activare model de iluminare Phong
+	glEnable(GL_LIGHT0); // activare sursa 0
+	glEnable(GL_DEPTH_TEST); // activare ascunderea suprafetelor
 
-	glEnable(GL_LIGHTING); // activare iluminare
-	glEnable(GL_LIGHT0);   // activare sursa 0
+	glColorMaterial(GL_FRONT, GL_DIFFUSE); // culoarea data de coeficientul de reflexie difuza
 
-	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_COLOR_MATERIAL); // urmareste culoarea curenta
 }
 
 void CALLBACK display()
@@ -50,21 +66,12 @@ void CALLBACK display()
 
 	glLoadIdentity();
 	glTranslatef(0.0, -1.0, 0.0);
-	glRotatef(250.0, 1.0, 0.0, 0.0);
-
-	glColorMaterial(GL_FRONT, GL_DIFFUSE);
-	glEnable(GL_COLOR_MATERIAL);
-	glColor3f(0.0f, 1.0f, 0.0f);
+	glRotatef(250.0, 1.0, 1.0, 0.0);
 	auxSolidCone(1.0, 2.0);
-	glDisable(GL_COLOR_MATERIAL);
 
 	
 	glTranslatef(1.0, -4.0, 0.0);
-	glColorMaterial(GL_FRONT, GL_DIFFUSE);
-	glEnable(GL_COLOR_MATERIAL);
-	glColor3f(1.0f, 0.0f, 0.0f);
 	auxSolidSphere(0.5);
-	glDisable(GL_COLOR_MATERIAL);
 	
 	glFlush();
 }
@@ -91,6 +98,12 @@ int main(int argc, char** argv)
 	auxInitPosition(0, 0, 800, 600);
 	auxInitWindow("Iluminarea");
 	myInit();
+	auxKeyFunc(AUX_R, changeRedDiffuse);
+	auxKeyFunc(AUX_r, changeRedDiffuse);
+	auxKeyFunc(AUX_G, changeGreenDiffuse);
+	auxKeyFunc(AUX_g, changeGreenDiffuse);
+	auxKeyFunc(AUX_B, changeBlueDiffuse);
+	auxKeyFunc(AUX_b, changeBlueDiffuse);
 	auxReshapeFunc(myReshape);
 	auxMainLoop(display);
 	return 0;
