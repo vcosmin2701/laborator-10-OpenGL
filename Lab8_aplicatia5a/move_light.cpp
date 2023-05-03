@@ -42,7 +42,7 @@ void CALLBACK display()
 	glTranslatef(0.0, 0.0, -5.0); // pozitia de observare
 
 	glPushMatrix();
-	glRotated((GLdouble)spin, 1.0, 0.0, 0.0); // rotatia sursei
+	glRotated((GLdouble)spin, 0.0, 1.0, 0.0); // rotatia sursei
 
 	GLfloat position[] = { 0.0, 0.0, 1.5, 1.0 }; // pozitia sursei
 	glLightfv(GL_LIGHT0, GL_POSITION, position); // functie apelata
