@@ -8,8 +8,38 @@ static int angle = 0;
 
 void myInit()
 {
-	glClearColor(0.0, 0.0, 0.0, 1.0);
+
 	glEnable(GL_DEPTH_TEST);
+
+	// setari pentru sursa de lumina
+	// intensitatea componentei ambientale din sursa 0 este nula
+	GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
+	// intensitatea componentei difuze din sursa 0 este maxima pentru fiecare componenta de culoare
+	GLfloat light_diffuse[] = { 0.0, 1.0, 0.0, 1.0 };
+	// intensitatea componentei speculare din sursa 0 este maxima pentru fiecrae compopnenta de culoare
+	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+
+	// pozitia sursei de lumina nu este cea implicita
+	GLfloat light_position[] = { 1.0, 0.0, 0.0, 0.0 };
+	// sursa de lumina pe axa x la infinit
+	GLfloat global_ambient[] = { 0.25, 0.25, 0.75, 1.0 };
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+	// lumina ambientala in scena
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+
+
+	glFrontFace(GL_CW); // orientarea implicita a varfurilor in sensul rotirii acelor
+	glEnable(GL_LIGHTING); // activare iluminare
+	glEnable(GL_LIGHT0); // activare sursa 0
+
+	glEnable(GL_AUTO_NORMAL); // activare calculare normale daca varfurile s-au determinat cu GL_MAP2_VERTEX_3 sau GL_MAP2_VERTEX_4
+	glEnable(GL_NORMALIZE); // activare normalizare (vectori unitari) vectori
+
 }
 
 void deseneazaCub()
@@ -85,13 +115,22 @@ void CALLBACK display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	GLfloat more_ambient[] = { 0.5, 0.5, 0.5, 1.0 };
+
 	glLoadIdentity();
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, more_ambient);
+	glPushMatrix();
+
 	glTranslatef(0.0, 0.0, -4.0);
 	glRotatef(angle, 1.0, 1.0, 0.0);
 
 	deseneazaCub();
+	glPopMatrix();
 
 	auxSwapBuffers();
+
+
 }
 
 
