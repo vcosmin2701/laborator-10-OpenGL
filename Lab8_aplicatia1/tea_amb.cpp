@@ -19,9 +19,9 @@ void myInit()
 	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 
 	// pozitia sursei de lumina nu este cea implicita
-	GLfloat light_position[] = { 1.0, 0.0, 0.0, 0.0 };
+	GLfloat light_position[] = { 0.0, 1.0, 0.0, 0.0 };
 	// sursa de lumina pe axa x la infinit
-	GLfloat global_ambient[] = { 0.75, 0.75, 0.75, 1.0 };
+	GLfloat global_ambient[] = { 0.25, 0.25, 0.75, 1.0 };
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
