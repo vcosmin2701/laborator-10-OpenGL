@@ -24,6 +24,7 @@ void myInit()
 	// valori implicite pentru intensitatea sursei LIGHT0
 	GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
 	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_diffuse1[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
@@ -51,10 +52,19 @@ void CALLBACK display()
 	glTranslatef(0.0, -1.0, 0.0);
 	glRotatef(250.0, 1.0, 0.0, 0.0);
 
+	glColorMaterial(GL_FRONT, GL_DIFFUSE);
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(0.0f, 1.0f, 0.0f);
 	auxSolidCone(1.0, 2.0);
+	glDisable(GL_COLOR_MATERIAL);
 
+	
 	glTranslatef(1.0, -4.0, 0.0);
+	glColorMaterial(GL_FRONT, GL_DIFFUSE);
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	auxSolidSphere(0.5);
+	glDisable(GL_COLOR_MATERIAL);
 	
 	glFlush();
 }
