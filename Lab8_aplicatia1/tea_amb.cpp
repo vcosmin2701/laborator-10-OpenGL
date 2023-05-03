@@ -23,14 +23,13 @@ void myInit()
 	// sursa de lumina pe axa x la infinit
 	GLfloat global_ambient[] = { 0.75, 0.75, 0.75, 1.0 };
 
-
-	/*glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);*/
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
 	// lumina ambientala in scena
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
 
 
 	glFrontFace(GL_CW); // orientarea implicita a varfurilor in sensul rotirii acelor
