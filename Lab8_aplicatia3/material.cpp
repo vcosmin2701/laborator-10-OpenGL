@@ -11,14 +11,14 @@
 void myInit(void)
 {
 	// componenta ambientala din sursa 0 este lumina cu intensitate 0
-	GLfloat ambient[] = { 0.0, 0.0, 0.0, 1.0 };
+	GLfloat ambient[] = { 1.0, 0.0, 0.0, 1.0 };
 	// componenta difuza din sursa 0 este lumina cu intensitate 1 pentru fiecare componenta de culoare R, G, B
 	GLfloat diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 
 	// sursa 0 este la infinit pe directia y=3, z=2
-	GLfloat position[] = { 0.0, 3.0, 2.0, 0.0 };
+	GLfloat position[] = { 0.0, 4.0, 3.0, 0.0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 
 	GLfloat lmodel_ambient[] = { 0.4, 0.4, 0.4, 1.0 };
