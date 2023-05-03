@@ -14,7 +14,7 @@ void myInit()
 	// intensitatea componentei ambientale din sursa 0 este nula
 	GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
 	// intensitatea componentei difuze din sursa 0 este maxima pentru fiecare componenta de culoare
-	GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat light_diffuse[] = { 0.0, 1.0, 0.0, 1.0 };
 	// intensitatea componentei speculare din sursa 0 este maxima pentru fiecrae compopnenta de culoare
 	GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 
@@ -45,8 +45,8 @@ void myInit()
 void CALLBACK display()
 {
 	GLfloat low_ambient[] = { 0.1, 0.1, 0.1, 1.0 };
-	GLfloat more_ambient[] = { 0.4, 0.4, 0.4, 1.0 };
-	GLfloat most_ambient[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat more_ambient[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat most_ambient[] = { 2.0, 2.0, 2.0, 1.0 };
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
